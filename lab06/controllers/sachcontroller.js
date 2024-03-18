@@ -1,15 +1,16 @@
-app.get('/',(req,res)=>{
-    res.render("homepage");
-})
-app.get('/sach/list',(req,res)=>{
+const sachModel = require ('../models/sachModel');
+const fs = require('fs');
+const formidable = require('formidable');
+const path= require("path");
+
+const sachList = (req,res) =>{
+    let sachs = sachModel.sachList();
     res.render("sachlist",{sachs});
-});
-app.get('/sach/them',(req,res)=>{
+}
+const sachThemGet = (req,res)=>{
     res.render("themsach");
-});
-app.post('/sach/them',(req,res)=>{
-    //thêm sách vào nơi lưu trữ
-    //install thư viện formidable để phục vụ upload hình . sử dụng như sau
+}
+const sachThemPost = (req,res)=>{
     let form =new formidable.IncomingForm();
     form.parse(req, (err, fields, files)=>{
         if(err){
@@ -18,8 +19,8 @@ app.post('/sach/them',(req,res)=>{
             let{tenSach,donGia,xuatXu,moTa,nhaXB} = fields;
             let urlHinh = files.urlHinh.originalFilename;
             let sach = {id: sachs.length + 1, tenSach, donGia, xuatXu, nhaXB, moTa, urlHinh};
-            sachs.push(sach);
-            console.log(sachs);
+            sachModel.sachThem(sach);
+
             let oldPath = files.urlHinh.filepath;
             let desPath = __dirname + "\\public\\images\\" + urlHinh;
 
@@ -33,19 +34,19 @@ app.post('/sach/them',(req,res)=>{
             })
         }
     });
-});
+}
 
-app.get('/sach/sua/:id', (req,res)=>{
+const sachSuaGet = (req,res)=>{
     let id = req.params.id;
-    let sach = sachs.find((s)=> s.id == id);
+    let sach = sachModel.sachSuaGet(id);
     res.render("suasach",{sach});
-});
-app.post('/sach/sua', (req,res)=>{
+};
+const sachSuaPost = (req,res)=>{
     const form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files)=>{
         let{id, tenSach, donGia, xuatXu, nhaXB, moTa} = fields;
         let {originalFilename,filepath} = files.urlHinh;
-        let sach = sachs.find((s) => s.id == id);
+        let oldSach = sachs.find((s) => s.id == id);
 
         let urlHinh = oldPath.urlHinh;
 
@@ -55,8 +56,7 @@ app.post('/sach/sua', (req,res)=>{
 
         let newSach = {id , tenSach, donGia, xuatXu, nhaXB, moTa, urlHinh};
 
-        let index = sachs.findIndex((s)=> s.id == id);
-        sachs[index] = newSach;
+        sachModel.sachSuaPost(newSach);
 
         res.redirect('/sach/list');
         if (originalFilename){
@@ -71,13 +71,16 @@ app.post('/sach/sua', (req,res)=>{
             })
         }
     })
-})
-app.get('/sach/xoa/:id',(req,res)=>{
+}
+const sachXoa = (req,res)=>{
     let id = req.params.id;
-    let index = sachs.findIndex((s)=> s.id == id);
     let deletePath = path.join(__dirname,"public\\images\\") + sachs[index].urlHinh;
-    sachs.splice(index,1) // xoá sách trong mảng
-    //xoá hình tương ứng trong images
+    sachModel.sachXoa(id);
+
     fs.unlink(deletePath, ()=> console.log("Đã xoá file"));
     res.redirect('/sach/list');
-});
+}
+
+module.exports= {
+    sachList,sachSuaGet,sachSuaPost,sachThemGet,sachThemPost,sachXoa
+}

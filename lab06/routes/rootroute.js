@@ -7,4 +7,4 @@ rootRoutes.get('/',(req,res)=>{
 })
 rootRoutes.use('/sach',sachRoutes);
 
-module.exports=rootRoutes
+module.exports=rootRoutes;
