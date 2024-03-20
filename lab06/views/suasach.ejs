@@ -13,8 +13,8 @@
         <div class="row justify-content-center">
             <div class="card w-50">
                 <div class="card-header bg-success text-white font-weight-bold text-center">SỬA SÁCH</div>
-                <form action="/suasach" method="post">
-                    <input type="hidden" name="id" value="<%=sach.id%>">
+                <form action="/sach/sua" method="post">
+                    <input type="hidden" name="id" value="<%=sach.id%>"/>
                     <div class="form-group">
                         <label for="">Tên sách</label>
                         <input class="form-control" type="text" name="tenSach" value="<%=sach.tenSach%>">
@@ -38,7 +38,7 @@
                             <label for="" class="form-control-label">Nhà xuất bản</label>
                             <select class="form-control custom-select" name="nhaXB">
                                 <option value="">-----Chọn nhà xuất bản-----</option>
-                                <option value="1" <%=sach.nhaXB == 1 ? "selected" : ""%>><Nhà xuất bản trẻ></option>
+                                <option value="1" <%=sach.nhaXB == 1 ? "selected" : ""%>>Nhà xuất bản trẻ</option>
                                 <option value="2" <%=sach.nhaXB == 2 ? "selected" : ""%>>Nhà xuất bản Giáo Dục</option>
                                 <option value="3" <%=sach.nhaXB == 3 ? "selected" : ""%>>Nhà xuất bản Thiết kế</option>
                             </select>
