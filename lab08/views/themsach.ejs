@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Thêm sách</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class ="card w-50">
+                <div class="card-header bg-success text-white font-weight-bold text-center">THÊM SÁCH MỚI</div>
+                <form action="/sach/them" method="post" id="main-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="">Tên Sách</label>
+                        <input class="form-control" type="text" id="=txttensach" name="tenSach" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Đơn giá</label>
+                        <input class="form-control" type="text" id="txtdongia" name="donGia" value="">
+                    </div>
+                    <div class="form-group">
+                        <label class="mr-3">Xuất xứ:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="xuatXu" id="rdXuatXu" value="1" checked>
+                            <label class="form-check-label" for="rdXuatXu">Trong nước</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="xuatXu" id="rdXuatXu" value="0">
+                            <label class="form-check-label" for="rdXuatXu">Nước ngoài</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="form-control-label">Nhà xuất bản</label>
+                        <select class="form-control custom-select" name="nhaXB">
+                            <option value="">-----Chọn nhà xuất bản-----</option>
+                            <option value="1">Nhà xuất bản trẻ</option>
+                            <option value="2">Nhà xuất bản Giáo Dục</option>
+                            <option value="3">Nhà xuất bản Thiết kế</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextareal">Mô tả</label>
+                        <textarea class="form-control" name="moTa" id="exampleFormControlTextareal" rows="3"></textarea>
+                    </div>
+                    <div class="=form-control">
+                        <label for="">Ảnh bìa sách</label>
+                        <input type="file" class="form-control-file" id="urlHinh" name="urlHinh">
+                    </div>
+                    <div class="form-group text-center">
+                        <input class="btn btn-success" type="submit" value="Thực hiện">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
