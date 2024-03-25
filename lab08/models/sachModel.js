@@ -16,7 +16,7 @@ const sachList = async () =>{
 const sachThem = async (sach)=>{
     let sql="INSERT INTO sach SET ?";
     try{
-        let affectRow = await db.query(db,sach);
+        let affectRow = await db.query(sql,sach);
         return affectRow;
     }catch (error){
         throw error;
